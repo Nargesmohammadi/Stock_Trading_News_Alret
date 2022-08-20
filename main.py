@@ -15,9 +15,15 @@ stock_params = {
     "apikey": STOCK_API_KEY
 }
 response = requests.get(STOCK_ENDPOINT, params=stock_params)
-print(response.json())
+data = response.json()["Time Series (Daily)"]
+# to change the dictionary to list:
+data_list = [value for (key, value) in data.items()]
+yesterday_data = data_list[0]
+yesterday_closing_price = yesterday_data["4. close"]
 
-
+# get the day before yesterday's closing stock price:
+before_yesterday_data = data_list[1]
+before_yesterday_closing_price = before_yesterday_data["4. close"]
 # # STEP 2: https://newsapi.org/
 # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME.
 
